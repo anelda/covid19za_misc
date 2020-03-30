@@ -8,7 +8,7 @@ library(googlesheets4)
 library(googledrive)
 library(tidyverse)
 
-# PROVIDE GOOGLE SHEET CONTEXT AND ORIGINAL CSV FILE ----
+## PROVIDE GOOGLE SHEET CONTEXT AND ORIGINAL CSV FILE ----
 
 # Replace goog_sheet with shared link to target google sheet or target google sheet ID
 goog_sheet <- 'https://docs.google.com/spreadsheets/d/1hJGFPEXfDRT2eOSUtZ8rR2ykf4xf76wR1wRvgNyw6gs/edit?usp=sharing'
@@ -37,5 +37,5 @@ sheets_auth(
   use_oob = gargle::gargle_oob_default(),
   token = NULL
 )
-# WRITE DATA TO TARGET SPREADSHEET ----
+## WRITE DATA TO TARGET SPREADSHEET ----
 sheets_write(csv_data, ss = goog_sheet, sheet = sheet_name)
