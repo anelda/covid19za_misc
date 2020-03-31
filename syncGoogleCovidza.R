@@ -29,6 +29,13 @@
 # Reference for these instructions: https://gargle.r-lib.org/articles/get-api-credentials.html under \'Service Account Token\ and 
 # https://github.com/tidyverse/googlesheets4/issues/27 - see comment by leerssej on Jun 30, 2019
 
+## USAGE
+# usage: [on linux after chmod +x]
+# ./syncGoogleCovidza.R -i [target_google_sheet_ID_string_or_shared_URL] \
+#                       -d [source_csv_file_url_or_file_path_if_local] \
+#                       -n [actual_target_googlesheet_name_eg_Sheet1] \
+#                       -k [path/to/Google_service_key.json]
+
 ## LOAD REQUIRED LIBRARIES ----
 
 suppressPackageStartupMessages(require(optparse))
@@ -38,8 +45,6 @@ suppressPackageStartupMessages(require(readr))
 ## CREATE ARGUMENTS TO RUN SCRIPT ON THE COMMAND LINE (IF RUN FROM RSTUDIO COMMENT THESE LINES OUT) ----
 
 option_list = list(
-  make_option(c("-g", "--goog_account"), type="character", default="anelda.vdwalt@gmail.com", 
-              help="Google email for account that should be used", metavar="character"),
   make_option(c("-i", "--googsheet_id"), type="character", default=NULL, 
               help="Target Google Sheet ID or shared URL that contains the ID", metavar="character"),
   make_option(c("-d", "--csv_data"), type="character", default = NULL,
@@ -56,9 +61,9 @@ opt = parse_args(opt_parser);
 
 # Handling empty arguments
 
-if (is.null(opt$goog_account)){
+if (is.null(opt$key)){
   print_help(opt_parser)
-  stop("Please provide a valid Google account email", call.=FALSE)
+  stop("Please provide a valid Google Service Account Key to access Google Sheets", call.=FALSE)
 }
 if (is.null(opt$googsheet_id)){
   print_help(opt_parser)
